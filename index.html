@@ -181,7 +181,7 @@
             modal.style.display = "flex"; // Show modal
             video.play(); // Auto play video
     
-            // Request full-screen mode
+            // Try to request full-screen and rotate
             if (video.requestFullscreen) {
                 video.requestFullscreen();
             } else if (video.mozRequestFullScreen) { // Firefox
@@ -191,10 +191,23 @@
             } else if (video.msRequestFullscreen) { // IE/Edge
                 video.msRequestFullscreen();
             }
+    
+            // Force landscape mode on mobile
+            if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock("landscape").catch(err => {
+                    console.log("Rotation lock failed:", err);
+                });
+            }
         }
     
         function closeModal() {
-            document.getElementById("modal").style.display = "none";
+            let modal = document.getElementById("modal");
+            modal.style.display = "none";
+    
+            // Unlock orientation when closing
+            if (screen.orientation && screen.orientation.unlock) {
+                screen.orientation.unlock();
+            }
         }
     </script>
 </body>
