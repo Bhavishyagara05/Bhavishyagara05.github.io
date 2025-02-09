@@ -1,220 +1,99 @@
-
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="Housewarming Invitation 🎉" />
-    <meta property="og:description" content="Join us for our housewarming celebration! Click to view details." />
-    <meta property="og:image" content="https://bhavishyagara05.github.io/final_image.jpg" />
-    <meta property="og:url" content="https://bhavishyagara05.github.io/index.html" />
-    <meta property="og:type" content="website" />
-
+<html>
+  <head>
     <title>Housewarming Invitation</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f8f9fa;
-        }
-        .container {
-            position: relative;
-            width: 300px;
-            margin: 50px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        .thumbnail {
-            width: 100%;
-            border-radius: 10px;
-        }
+      @import url("https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap");
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }  /* Visible */
-            50% { opacity: 0; }       /* Invisible */
-        }
-        .countdown {
-            font-size: 16px; /* Reduced size */
-            margin: 10px 0;
-            font-weight: bold;
-            color: #2C3E50;
-            animation: blink 1s infinite;
-        }
-        .btn {
-            display: inline-block;
-            padding: 10px 15px;
-            font-size: 16px;
-            background-color: #008000;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-        .btn:hover {
-            background-color: #008000;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-        }
-        .close {
-            cursor: pointer;
-            color: red;
-            font-size: 20px;
-        }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Zain", serif;
+        background-color: #f5f5f5;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-        /* Added Location and Adjustments */
-        .location-section {
-            margin-top: 15px;
-            font-size: 12px; /* Adjusted size */
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+      #countdown {
+        font-size: 3.5rem;
+        font-weight: bold;
+        font-family: "Zain", serif;
+        text-align: center;
+        color: #b22222;
+        text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+        animation: fadeOut 4s forwards;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f5f5f5;
+      }
 
-        .location-link a {
-            color: #2C3E50;
-            text-decoration: none;
-            font-weight: bold;
-            font-size:large;
-            text-decoration: underline;
-            
+      @keyframes fadeOut {
+        0% {
+          opacity: 1;
         }
+        80% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
 
-        .location-link a:hover {
-            text-decoration: underline;
-        }
+      #video-container {
+        width: 100%;
+        height: 100%;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+      }
 
-        /* Hand pointer icon */
-        .hand-pointer {
-            margin-left: 5px;
-            font-size: 18px;
-            animation: point 1s infinite;
-        }
-
-        @keyframes point {
-            0% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-5px);
-            }
-            100% {
-                transform: translateY(0);
-            }
-            
-        }
-
-        /* Mobile responsive */
-        @media (max-width: 600px) {
-            .container {
-                width: 90%;
-            }
-            .btn {
-                font-size: 14px;
-                padding: 8px 12px;
-            }
-            .countdown {
-                font-size: 12px; /* Adjust countdown font on small screens */
-            }
-        }
+      video {
+        max-width: 100%;
+        max-height: 100%;
+      }
     </style>
-</head>
-<body>
-    <div class="container">
-        <img src="./final_image.png" alt="Housewarming Invite" class="thumbnail">
-        <div class="countdown" id="countdown"></div>
-        <button class="btn" onclick="openModal()">Press to See Invite</button>
-        
-        <!-- Location Section -->
-        <div class="location-section">
-            <span class="location-link">
-                <span>👉<class="hand-pointer"></span> 
-                <a href="https://maps.app.goo.gl/ztjcf9ZsTWMct4BS6" target="_blank"><b>Location</b></a><!-- Hand pointer icon -->
-            </span>
-        </div>
-    </div>
-
-    <div class="modal" id="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2>You're Invited!</h2>
-            <video width="300" autoplay playsinline preload="auto" controls>
-                <source src="./final_invite.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
+  </head>
+  <body>
+    <div id="countdown"></div>
+    <div id="video-container">
+      <video id="invitation-video" controls autoplay>
+        <source src="./final_invite.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
     </div>
 
     <script>
-        function updateCountdown() {
-            const eventDate = new Date("2025-02-19").getTime(); 
-            const now = new Date().getTime();
-            const diff = eventDate - now;
-            
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            const dayInterval = days>1 ? "days" : "day";
-            document.getElementById("countdown").innerHTML = `${days} ${dayInterval} to go`;
-            
-        }
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-        
-        function openModal() {
-            let modal = document.getElementById("modal");
-            let video = document.getElementById("invitation-video");
-    
-            modal.style.display = "flex"; // Show modal
-            video.play(); // Auto play video
-    
-            // Try to request full-screen and rotate
-            if (video.requestFullscreen) {
-                video.requestFullscreen();
-            } else if (video.mozRequestFullScreen) { // Firefox
-                video.mozRequestFullScreen();
-            } else if (video.webkitRequestFullscreen) { // Chrome, Safari, Opera
-                video.webkitRequestFullscreen();
-            } else if (video.msRequestFullscreen) { // IE/Edge
-                video.msRequestFullscreen();
-            }
-    
-            // Force landscape mode on mobile
-            if (screen.orientation && screen.orientation.lock) {
-                screen.orientation.lock("landscape").catch(err => {
-                    console.log("Rotation lock failed:", err);
-                });
-            }
-        }
-    
-        function closeModal() {
-            let modal = document.getElementById("modal");
-            modal.style.display = "none";
-    
-            // Unlock orientation when closing
-            if (screen.orientation && screen.orientation.unlock) {
-                screen.orientation.unlock();
-            }
-        }
+      function getDaysUntilEvent() {
+        const eventDate = new Date("2025-02-19");
+        const today = new Date();
+        const diffTime = eventDate - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays;
+      }
+
+      const daysLeft = getDaysUntilEvent();
+      const dayInterval = daysLeft === 1 ? "day" : "days";
+      document.getElementById(
+        "countdown"
+      ).textContent = `${daysLeft} ${dayInterval} to go`;
+
+      setTimeout(() => {
+        document.getElementById("countdown").style.display = "none";
+        const videoContainer = document.getElementById("video-container");
+        videoContainer.style.display = "flex";
+
+        const video = document.getElementById("invitation-video");
+        video.play().catch((error) => {
+          console.log("Video autoplay failed:", error);
+        });
+      }, 4000);
     </script>
-</body>
+  </body>
 </html>
