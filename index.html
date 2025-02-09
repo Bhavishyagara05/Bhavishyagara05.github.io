@@ -27,28 +27,15 @@
         }
         .video-container {
             display: none;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        video {
-            width: 90%;
-            max-width: 600px;
-            border-radius: 10px;
         }
     </style>
 </head>
 <body>
-
     <div class="countdown" id="countdown">9 days to go</div>
 
     <div class="video-container" id="videoContainer">
-        <video id="inviteVideo" autoplay muted playsinline>
-            <source src="final_invite.mp4" type="video/mp4">
+        <video width="300" controls autoplay>
+            <source src="file:///Users/apple/Downloads/final_invite.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
@@ -56,11 +43,8 @@
     <script>
         setTimeout(() => {
             document.getElementById("countdown").style.display = "none";
-            document.getElementById("videoContainer").style.display = "flex";
-            let video = document.getElementById("inviteVideo");
-            video.play().catch(error => console.log("Autoplay failed:", error));
-        }, 3000);
+            document.getElementById("videoContainer").style.display = "block";
+        }, 3000); // Show countdown for 3 seconds, then display video
     </script>
-
 </body>
 </html>
