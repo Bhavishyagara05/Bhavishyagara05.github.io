@@ -9,6 +9,8 @@
         font-family: Arial, sans-serif;
         height: 100vh;
         background-color: black;
+        width: 100vw; /* Ensure body occupies full width */
+        overflow: hidden; /* Prevent scrolling */
       }
 
       #video-container {
@@ -21,8 +23,8 @@
       }
 
       video {
-        max-width: 100%;
-        max-height: 100%;
+        width: 100%; /* Ensure video occupies full width */
+        height: 100%; /* Ensure video occupies full height */
       }
 
       #countdown {
