@@ -1,50 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html>
+  <head>
     <title>Housewarming Invitation</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f8f9fa;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .countdown {
-            font-size: 24px;
-            font-weight: bold;
-            color: #2C3E50;
-            animation: blink 1s infinite;
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        .video-container {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <div class="countdown" id="countdown">9 days to go</div>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        background-color: black;
+      }
 
-    <div class="video-container" id="videoContainer">
-        <video width="300" controls autoplay>
-            <source src="file:///Users/apple/Downloads/final_invite.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+      #video-container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      video {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      #countdown {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -90%);
+        font-size: 3rem;
+        text-align: center;
+        color: #964b00;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        padding: 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        z-index: 10;
+        transition: opacity 0.3s ease;
+      }
+
+      .hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="video-container">
+      <div id="countdown"></div>
+      <video id="invitation-video" controls>
+        <!-- Replace the src with your video file -->
+        <source src="./final_invite.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
     </div>
 
     <script>
-        setTimeout(() => {
-            document.getElementById("countdown").style.display = "none";
-            document.getElementById("videoContainer").style.display = "block";
-        }, 3000); // Show countdown for 3 seconds, then display video
+      // Calculate days until February 19, 2025
+      function getDaysUntilEvent() {
+        const eventDate = new Date("2025-02-19");
+        const today = new Date();
+        const diffTime = eventDate - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return diffDays;
+      }
+
+      // Display countdown
+      const daysLeft = getDaysUntilEvent();
+      const countdownElement = document.getElementById("countdown");
+      const videoElement = document.getElementById("invitation-video");
+
+      const daysText = daysLeft === 1 ? "day" : "days";
+      countdownElement.textContent = `${daysLeft} ${daysText} to go`;
+
+      // Function to hide countdown and play video
+      function startVideo() {
+        countdownElement.classList.add("hidden");
+        videoElement.play().catch(function (error) {
+          console.log("Video autoplay failed:", error);
+        });
+      }
+
+      // Add click handlers
+      countdownElement.addEventListener("click", startVideo);
+      videoElement.addEventListener("click", startVideo);
+
+      // Auto play video when page loads
+      videoElement.play().catch(function (error) {
+        console.log("Video autoplay failed:", error);
+      });
     </script>
-</body>
+  </body>
 </html>
