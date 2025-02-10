@@ -3,14 +3,16 @@
   <head>
     <title>Housewarming Invitation</title>
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap");
+
       body {
         margin: 0;
         padding: 0;
         font-family: Arial, sans-serif;
         height: 100vh;
         background-color: black;
-        width: 100vw; /* Ensure body occupies full width */
-        overflow: hidden; /* Prevent scrolling */
+        width: 100vw;
+        overflow: hidden;
       }
 
       #video-container {
@@ -23,8 +25,8 @@
       }
 
       video {
-        width: 100%; /* Ensure video occupies full width */
-        height: 100%; /* Ensure video occupies full height */
+        width: 100%;
+        height: 100%;
       }
 
       #countdown {
@@ -33,9 +35,10 @@
         left: 50%;
         transform: translate(-50%, -90%);
         font-size: 3rem;
+        font-family: "Poppins", sans-serif; /* Updated font */
         text-align: center;
-        color: #964b00;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        color: #ffcc00; /* Changed to a more vibrant color */
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
         padding: 20px;
         border-radius: 10px;
         cursor: pointer;
@@ -47,20 +50,47 @@
         opacity: 0;
         pointer-events: none;
       }
+
+      /* Custom Play Button */
+      #play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100px;
+        height: 100px;
+        background-color: rgba(0, 0, 0, 0.7);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 15;
+        transition: background-color 0.3s ease;
+      }
+
+      #play-button:hover {
+        background-color: rgba(0, 0, 0, 0.9);
+      }
+
+      #play-button::before {
+        content: "▶";
+        font-size: 3rem;
+        color: white;
+      }
     </style>
   </head>
   <body>
     <div id="video-container">
       <div id="countdown"></div>
+      <div id="play-button"></div>
       <video id="invitation-video" controls>
-        <!-- Replace the src with your video file -->
         <source src="./final_invite.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </div>
 
     <script>
-      // Calculate days until February 19, 2025
       function getDaysUntilEvent() {
         const eventDate = new Date("2025-02-19");
         const today = new Date();
@@ -69,30 +99,23 @@
         return diffDays;
       }
 
-      // Display countdown
       const daysLeft = getDaysUntilEvent();
       const countdownElement = document.getElementById("countdown");
       const videoElement = document.getElementById("invitation-video");
+      const playButton = document.getElementById("play-button");
 
       const daysText = daysLeft === 1 ? "day" : "days";
       countdownElement.textContent = `${daysLeft} ${daysText} to go`;
 
-      // Function to hide countdown and play video
       function startVideo() {
         countdownElement.classList.add("hidden");
-        videoElement.play().catch(function (error) {
-          console.log("Video autoplay failed:", error);
-        });
+        playButton.classList.add("hidden");
+        videoElement.play().catch(error => console.log("Video autoplay failed:", error));
       }
 
-      // Add click handlers
       countdownElement.addEventListener("click", startVideo);
+      playButton.addEventListener("click", startVideo);
       videoElement.addEventListener("click", startVideo);
-
-      // Auto play video when page loads
-      videoElement.play().catch(function (error) {
-        console.log("Video autoplay failed:", error);
-      });
     </script>
   </body>
 </html>
